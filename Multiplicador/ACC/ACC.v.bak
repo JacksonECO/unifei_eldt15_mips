@@ -1,0 +1,24 @@
+module ACC(clk,rst,Load,Sh,Ad,lsb,msb,saida,M);
+		input clk, rst, Load, Sh, Ad;
+		input [3:0] lsb;
+		input [4:0] msb;
+		output [7:0] saida;
+		output M;
+		
+		reg [8:0] mem;
+		
+		assign saida = mem[7:0];
+		assign M = mem[0];
+		
+		always @(posedge clk, negedge rst) begin
+				if(~rst) mem = 9'd0;
+				else
+					case({Load,Ad,Sh})
+							3'b100: mem <= {5'd0,lsb};
+							3'b010: mem <= {msb,mem[3:0]};
+							3'b001: mem <= {1'b0,mem[8:1]};
+							default: mem <= mem;
+					endcase
+		end
+		
+endmodule
