@@ -18,15 +18,15 @@ module mux_TB();
 		data2 = 32'hFFF;
 		
 		sel = 0;
-		#100 $stop;
+		#1000 $stop;
 		
 	end
 	
 	always begin
-		#3  data1 = data1 +1;
+		#20  data1 = data1 +1;
 		data2 = data2 -1;
 	end
 	
-	always #2 sel = !sel;
+	always #40 sel = !sel;
 
 endmodule
