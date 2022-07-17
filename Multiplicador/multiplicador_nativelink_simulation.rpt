@@ -9,8 +9,8 @@ Quartus sim root      :  c:/intelfpga_lite/18.1/quartus/eda/sim_lib
 Simulation Tool       :  modelsim-altera
 Simulation Language   :  verilog
 Simulation Mode       :  GUI
-Sim Output File       :  multiplicador_min_1200mv_-40c_fast.vo
-Sim SDF File       :  multiplicador_min_1200mv_-40c_v_fast.sdo
+Sim Output File       :  multiplicador_7_1200mv_-40c_slow.vo
+Sim SDF File       :  multiplicador_7_1200mv_-40c_v_slow.sdo
 Sim dir               :  simulation\modelsim
 
 =======================================================
