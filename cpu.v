@@ -9,12 +9,12 @@ responda (respostas dentro do módulo MIPS_CPU como comentários):
 
 a) Qual a latência do sistema?
 
-Resp: A latência do sistema é de 5 ciclos de clock, que equivale a __ ns.
+Resp: A latência do sistema é de 5 ciclos de clock, que equivale a 599.245655 ns.
 
 b) Qual o throughput do sistema?
 
 Resp: O throughput  do sistema é de um período de clock, após o quinto ciclo,
-que equivale a __ ns
+que equivale a 119.849131 ns
 
 c) Qual a máxima frequência operacional entregue pelo Time Quest Timing Analizer 
 para o multiplicador e para o sistema? (Indique a FPGA utilizada)
@@ -26,7 +26,7 @@ EP4CGX150DF31I7AD.
 d) Qual a máxima frequência de operação do sistema? (Indique a FPGA utilizada)
 
 Resp: A FPGA utilizada foi a CYCLONE IV EP4CGX150DF31I7AD e a máxima frequência de 
-operação do sistema é de ___ MHz
+operação do sistema é de 8.34382353 MHz, que é um 34 avos da frêquencia máxima do multiplicador
 
 e) Com a arquitetura implementada, a expressão (A*B) – (C+D) é executada corretamente 
 (se executada em sequência ininterrupta)? Por quê? O que pode ser feito para que a 
