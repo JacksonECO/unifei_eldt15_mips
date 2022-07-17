@@ -14,9 +14,9 @@ module registerfile
 	
 	reg [31:0] register [0:n_register-1];
 	
-	always @ (negedge clk, posedge rst) begin
+	always @ (negedge clk, negedge rst) begin
 		i = 0;
-		if(rst)
+		if(~rst)
 			for(i = 0; i < n_register; i = i+1) begin
 				register[i] = 32'b0;
 			end

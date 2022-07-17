@@ -25,8 +25,8 @@ module datamemory
 	
 	always@(posedge CLK) begin
 		if (~RW_RD) // ~RW_RD = escrita
-			memData[ADDR-32'h2400] <= din;
+			memData[ADDR-32'h4b00] <= din;
 		else 			// RW_RD = leitura
-			dout <= memData[ADDR-32'h2400];
+			dout <= memData[ADDR-32'h4b00];
 	end
 endmodule
