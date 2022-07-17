@@ -1,4 +1,4 @@
-`timescale 1ns/10ps
+`timescale 10ns/10ps
 module multiplicador_TB();
 	
 	reg St, rst, clk;
@@ -65,11 +65,10 @@ module multiplicador_TB();
 		Multiplicando = 1;
 		#3;
 		St=0;
-		#96;
+		
+		#110 $stop;
 		
 	end
-	
-	initial #4000 $stop;
 	
 	
 
