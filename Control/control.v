@@ -1,5 +1,5 @@
 module control(
-	input [31:0] instrution,
+	input [31:0] instruction,
 	output [31:0] out
 );
 
@@ -19,8 +19,8 @@ reg extend_ctrl; // Ativa o extender - 0: Instrução tipo R, 1: Instrução tip
 assign out = {{8'b0},{extend_ctrl},{mul_ctrl},{rs},{rt},{rd},{wr_reg_file},{wr},{mux_wb},{mux_reg},{mux_alu},{alu_ctrl}};
 
 always @(*) begin
-	rs <= instrution[25:21];
-	rt <= instrution[20:16];
+	rs <= instruction[25:21];
+	rt <= instruction[20:16];
 	wr <= 0;
 	alu_ctrl <= 0;
 	mux_alu <= 1;
@@ -31,10 +31,10 @@ always @(*) begin
 	extend_ctrl <= 0;
 	mul_ctrl <= 0;
 
-	case(instrution[31:26])
+	case(instruction[31:26])
 		6'd15: // Instrução do tipo R
 		begin
-			case(instrution[5:0])
+			case(instruction[5:0])
 				6'd32: // Adição / ADD
                     begin
                         alu_ctrl <= 2'b00;
@@ -65,7 +65,7 @@ always @(*) begin
                         mul_ctrl <= 0;
                     end	
 			endcase
-			rd <= instrution[15:11];
+			rd <= instruction[15:11];
 			mux_reg <= 0;
 			mux_wb <= 0;
 			wr <= 1;
