@@ -26,7 +26,7 @@ EP4CGX150DF31I7AD.
 d) Qual a máxima frequência de operação do sistema? (Indique a FPGA utilizada)
 
 Resp: A FPGA utilizada foi a CYCLONE IV EP4CGX150DF31I7AD e a máxima frequência de 
-operação do sistema é de 8.34382353 MHz, que é um 34 avos da frêquencia máxima do multiplicador
+operação do sistema é de 8.3438 MHz, que é um 34 avos da frêquencia máxima do multiplicador
 
 e) Com a arquitetura implementada, a expressão (A*B) – (C+D) é executada corretamente 
 (se executada em sequência ininterrupta)? Por quê? O que pode ser feito para que a 
@@ -66,3 +66,186 @@ pipeline. Essa alteração aumentaria a frequência máxima do clock do sistema,
 porém, não alteraria a latência e o throughput em função do número de clocks, 
 mas diminuiria o período de clock, diminuindo a latência e aumentando o throughput 
 em função do tempo.*/
+
+
+module cpu (
+        input  CLK, RST, 
+        input  [31:0] Data_BUS_READ,
+        output [31:0] ADDR, Data_BUS_WRITE,
+        output CS, WR
+    );
+
+	wire CLK_SYS, CLK_MUL;
+	wire [31:0] WriteBack;
+	wire [9:0] wire_address;
+	wire [31:0] wire_produto_out, wire_A, wire_B, wire_instruction, wire_D_out, wire_M_in, wire_reg_cs, wire_memory, wire_D_in, wire_alu, wire_mux_alu_in, wire_imm, wire_ctrl1, wire_ctrl2, wire_ctrl3, wire_ctrl4, wire_offset_ext;
+	
+
+    // Clock
+    PLL PLL( 
+        .areset(RST),
+        .inclk0(CLK),
+        .c0(CLK_MUL),
+        .c1(CLK_SYS)
+    );
+
+    //Primeiro Estagio : Instruction Fetch 
+
+    instructionmemory ProgramMemory (
+        .Addr(wire_address),
+        //.clk(CLK_SYS),
+        .Instruction(wire_instruction)
+    );
+
+    pc PC (
+        .rst(RST),
+        .clk(CLK_SYS),
+        .count(wire_address)
+    );
+
+    //Segundo Estagio : Instruction Decode
+
+    registerfile RegisterFile (
+        .dataIn(WriteBack),
+        .we(wire_ctrl4[23]),
+        .clk(CLK_SYS),
+        .rst(RST),
+        .rs(wire_ctrl1[14:10]),
+        .rt(wire_ctrl1[9:5]),
+        .rd(wire_ctrl4[4:0]), // Quinto Estagio
+        .A(wire_A),
+        .B(wire_B)
+    );	
+
+    control Control (
+        .instruction(wire_instruction),  
+        .out(wire_ctrl1)
+    );
+
+    extend Extend (
+        .dataIn(wire_instruction[15:0]),
+        .dataOut(wire_offset_ext),
+        .enable(wire_ctrl1[20])
+    );
+
+    Register IMM (
+        .rst(RST), 
+        .clk(CLK_SYS),
+        .D(wire_offset_ext),      
+        .Q(wire_imm)	
+    );
+
+    Register CRTL1 (
+        .rst(RST),
+        .clk(CLK_SYS),
+        .D({8'b0,wire_ctrl1}),      
+        .Q(wire_ctrl2)	
+    );
+
+    //Terceiro Estagio : Execute
+
+    mux Mux_Alu_In (
+        .data1(wire_imm), //1
+        .data2(wire_B), //0
+        .sel(wire_ctrl2[19]),
+        .out(wire_mux_alu_in)
+    );
+
+    Register CRTL2 (
+        .rst(RST),
+        .clk(CLK_SYS),
+        .D(wire_ctrl2),      
+        .Q(wire_ctrl3)	
+    );
+
+    alu ALU (
+        .data1(wire_A),
+        .data2(wire_mux_alu_in),
+        .sel(wire_ctrl2[22:21]),
+        .out(wire_alu)
+    );
+
+    mux Mux_Alu_Out (
+        .data1(wire_alu), //1
+        .data2(wire_produto_out), //0
+        .sel(wire_ctrl2[18]),
+        .out(wire_D_in)
+    );
+
+    multiplicador MUL(
+        .St(wire_ctrl2[15]), 
+        .clk(CLK_MUL), 
+        .Produto(wire_produto_out),
+        .Multiplicador(wire_A),
+        .Multiplicando(wire_B)
+    );
+
+    Register D (
+        .rst(RST),
+        .clk(CLK_SYS),
+        .D(wire_D_in),      
+        .Q(ADDR)	
+    );
+
+    Register Reg_B2 (
+        .rst(RST),
+        .clk(CLK_SYS),
+        .D(wire_B),      
+        .Q(Data_BUS_WRITE)	
+    );
+
+    //Quarto Estagio : Memory
+
+    assign WR = wire_ctrl3[16]; 
+        
+    datamemory DataMemory (
+        .ADDR(ADDR[9:0]),
+        .din(Data_BUS_WRITE),
+        .RW_RD(wire_ctrl3[16]),
+        .CLK(CLK_SYS),
+        .dout(wire_memory)
+    );
+
+    mux Mux_Memory (
+        .data1(Data_BUS_READ), //1
+        .data2(wire_memory), //0
+        .sel(wire_reg_cs), // ADDR Decoding
+        .out(wire_M_in)
+    );
+
+    ADDRDecoding ADDRDecoding(
+        .ADDR(ADDR),
+        .CS(CS)
+    );
+
+    Register Reg_CS (
+        .rst(RST),
+        .clk(CLK_SYS),
+        .D(CS),      
+        .Q(wire_reg_cs)	
+    );
+
+    Register D2 (
+        .rst(RST),
+        .clk(CLK_SYS),
+        .D(ADDR),      
+        .Q(wire_D_out)	
+    );
+
+    Register CRTL3 (
+        .rst(RST),
+        .clk(CLK_SYS),
+        .D(wire_ctrl3),      
+        .Q(wire_ctrl4)	
+    );
+
+    // Quinto Estagio : Write Back
+
+    mux Mux_WB (
+        .data1(wire_M_in),  //1
+        .data2(wire_D_out), //0
+        .sel(wire_ctrl4[17]), // ADDR Decoding
+        .out(WriteBack)
+    );
+
+endmodule

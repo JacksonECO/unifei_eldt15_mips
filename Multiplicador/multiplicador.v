@@ -2,7 +2,7 @@ module multiplicador(Produto, Idle, Done, clk, rst, St, Multiplicador, Multiplic
 		output	[31:0] Produto;
 		output	Idle, Done;
 		input 	St, clk, rst; 
-		input		[15:0] Multiplicador, Multiplicando;
+		input	[15:0] Multiplicador, Multiplicando;
 		
 		wire	K, M, Load, Sh, Ad;
 		wire	[16:0]soma_out;
