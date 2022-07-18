@@ -64,7 +64,7 @@ module cpu(
 	
 	//-- Instruction Fetch - Etapa 1
 	pc pc1(.clk(CLK_SYS), .rst(Rst), .count(PcPointer));
-	instructionmemory INST(.Addr(PcPointer), .Instruction(InstructionOut),.clk(CLK_SYS));
+	instructionmemory INST(.Addr(PcPointer),.clk(CLK_SYS), .Instruction(InstructionOut));
 	
 	
 	//-- Intruction Decode - Etapa 2
@@ -88,13 +88,13 @@ module cpu(
 	//-- Memory - Etapa 4
 	datamemory dataMem(.ADDR(D1Out), .RW_RD(CTRL2Out[5]), .CLK(CLK_SYS), .din(B1Out), .dout(dataMemOut));
 	ADDRDecoding addr(.ADDR(D1Out), .CS(ADDROut));
-    mux mux3(.data1(dataMemOut), .data2(Data_BUS_READ), .sel(ADDROut), .out(Mux3Out));
+	Register regM(.clk(CLK_SYS), .rst(Rst), .D({31'b0,ADDROut}), .Q(MOut));
+    mux mux3(.data1(dataMemOut), .data2(Data_BUS_READ), .sel(MOut[0]), .out(Mux3Out));
 	Register regD2(.clk(CLK_SYS), .rst(Rst), .D(D1Out), .Q(D2Out)); //saida??
-	Register regM(.clk(CLK_SYS), .rst(Rst), .D(Mux3Out), .Q(MOut));
 	Register ctrlReg3(.clk(CLK_SYS), .rst(Rst), .D(CTRL2Out), .Q(CTRL3Out));
 	
 	//-- WriteBack  - Etapa 5
-	mux mux4(.data1(D2Out), .data2(MOut), .sel(CTRL3Out[4]), .out(writeBack));
+	mux mux4(.data1(D2Out), .data2(Mux3Out), .sel(CTRL3Out[4]), .out(writeBack));
 	registerfile regFile(.clk(CLK_SYS), .rst(Rst), .dataIn(writeBack), .rd(CTRL3Out[11:7]), .we(CTRL3Out[6]), .rs(ControlOut[21:17]),
          .rt(ControlOut[16:12]), .A(ARegFileOut), .B(BRegFileOut));
 	

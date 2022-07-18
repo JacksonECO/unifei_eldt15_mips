@@ -1,10 +1,9 @@
 module instructionmemory(
 	input clk,
 	input [9:0] Addr,
-	output [31:0] Instruction
+	output reg [31:0] Instruction
 );
-	
-	reg [31:0] Instruction_reg;
+
 	reg [31:0] mem[0:1023];
 	
 	initial begin
@@ -50,12 +49,8 @@ module instructionmemory(
 	
 	end
 	
-	assign Instruction = Instruction_reg;
-	
 	always @(posedge clk) begin
-	
-		Instruction_reg <= mem[Addr];
-	
+		if(clk) Instruction <= mem[Addr];
 	end
 
 endmodule
