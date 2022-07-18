@@ -26,9 +26,8 @@ module cpu(
 	//-- Wires execute
     wire Idle, Done;
 
-	wire [31:0] Mux1Out;
+	wire [31:0] Mux1Out, Mux2Out, Mux3Out; // Saidas dos mux
 	wire [31:0] ALUOut;
-	wire [31:0] Mux2Out;
 	wire [31:0] D1Out;
 	wire [31:0] B1Out;
 	wire [31:0] CTRL2Out;
@@ -38,11 +37,11 @@ module cpu(
 	
 	//-- Wires Memory
 	wire ADDROut;
-	wire [31:0] CStemp;
+	wire [31:0] MOut;
 	wire [31:0] D2Out;
 	wire [31:0] CTRL3Out;
 	wire [31:0] dataMemOut;
-	wire [31:0] BusOut;
+	// wire [31:0] BusOut;
 	// wire [31:0] ADDR;
 	
 	
@@ -65,7 +64,7 @@ module cpu(
 	
 	//-- Instruction Fetch - Etapa 1
 	pc pc1(.clk(CLK_SYS), .rst(Rst), .count(PcPointer));
-	instructionmemory iMem(.Addr(PcPointer), .Instruction(InstructionOut));
+	instructionmemory INST(.Addr(PcPointer), .Instruction(InstructionOut));
 	
 	
 	//-- Intruction Decode - Etapa 2
@@ -78,7 +77,8 @@ module cpu(
 	//-- Execute - Etapa 3
 	mux mux1(.data1(BRegFileOut), .data2(ImmediateOut), .sel(CTRL1Out[3]), .out(Mux1Out));
 	mux mux2(.data1(MultOut), .data2(ALUOut), .sel(CTRL1Out[2]), .out(Mux2Out));
-	multiplicador mult(.Multiplicando(ARegFileOut[15:0]),.Multiplicador(BRegFileOut[15:0]),.St(CTRL1Out[22]),.clk(CLK_MUL),.rst(Rst),.Produto(MultOut),.Idle(Idle),.Done(Done));
+	multiplicador mult(.Multiplicando(ARegFileOut[15:0]),.Multiplicador(BRegFileOut[15:0]),
+        .St(CTRL1Out[22]),.clk(CLK_MUL),.rst(Rst),.Produto(MultOut),.Idle(Idle),.Done(Done));
 	alu alu(.data1(ARegFileOut), .data2(Mux1Out), .sel(CTRL1Out[1:0]), .out(ALUOut));
 	Register regD1(.clk(CLK_SYS), .rst(Rst), .D(Mux2Out), .Q(D1Out));
 	Register regB1(.clk(CLK_SYS), .rst(Rst), .D(BRegFileOut), .Q(B1Out));
@@ -88,13 +88,15 @@ module cpu(
 	//-- Memory - Etapa 4
 	datamemory dataMem(.ADDR(D1Out), .RW_RD(CTRL2Out[5]), .CLK(CLK_SYS), .din(B1Out), .dout(dataMemOut));
 	ADDRDecoding addr(.ADDR(D1Out), .CS(ADDROut));
-	Register regcS(.clk(CLK_SYS), .rst(Rst), .D({31'b0,ADDROut}), .Q(CStemp));
-	Register regD2(.clk(CLK_SYS), .rst(Rst), .D(D1Out), .Q(D2Out));
+    mux mux3(.data1(dataMemOut), .data2(Data_BUS_READ), .sel(ADDROut), .out(Mux3Out));
+	Register regD2(.clk(CLK_SYS), .rst(Rst), .D(D1Out), .Q(D2Out)); //saida??
+	Register regM(.clk(CLK_SYS), .rst(Rst), .D(Mux3Out), .Q(MOut));
 	Register ctrlReg3(.clk(CLK_SYS), .rst(Rst), .D(CTRL2Out), .Q(CTRL3Out));
 	
 	//-- WriteBack  - Etapa 5
-	mux mux3(.data1(D2Out), .data2(BusOut), .sel(CTRL3Out[4]), .out(writeBack));
-	registerfile regFile(.clk(CLK_SYS), .rst(Rst), .dataIn(writeBack), .rd(CTRL3Out[11:7]), .we(CTRL3Out[6]), .rs(ControlOut[21:17]), .rt(ControlOut[16:12]), .A(ARegFileOut), .B(BRegFileOut));
+	mux mux4(.data1(D2Out), .data2(MOut), .sel(CTRL3Out[4]), .out(writeBack));
+	registerfile regFile(.clk(CLK_SYS), .rst(Rst), .dataIn(writeBack), .rd(CTRL3Out[11:7]), .we(CTRL3Out[6]), .rs(ControlOut[21:17]),
+         .rt(ControlOut[16:12]), .A(ARegFileOut), .B(BRegFileOut));
 	
 	
-endmodule 
+endmodule

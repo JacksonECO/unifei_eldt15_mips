@@ -12,7 +12,8 @@ module TB();
 
     // Variáves externas
     reg [9:0] PcPointer;
-    reg CLK_SYS;
+    reg CLK_SYS, CLK_MUL;
+    reg [31:0] B1Out, writeBack, CTRL3Out;
 	
 	cpu DUT (
         .CLK(CLK),
@@ -27,6 +28,10 @@ module TB();
 	initial begin
 		$init_signal_spy("/TB/DUT/PcPointer","PcPointer",1);
 		$init_signal_spy("/TB/DUT/CLK_SYS","CLK_SYS",1);
+		$init_signal_spy("/TB/DUT/CLK_MUL","CLK_MUL",1);
+		$init_signal_spy("/TB/DUT/B1Out","B1Out",1);
+		$init_signal_spy("/TB/DUT/writeBack","writeBack",1);
+		$init_signal_spy("/TB/DUT/CTRL3Out","CTRL3Out",1);
 		// $init_signal_spy("DUT/CLK_MUL","CLK_MUL",1);
 		// $init_signal_spy("DUT/WriteBack","writeBack",1);
 				
@@ -35,11 +40,11 @@ module TB();
 		Data_BUS_READ = 32'h1DAA;
 		#200 RST = 1;
 
-        #10000 $stop;
+        #500 $stop;
 	end
 	
 	
 	
-	always #50 CLK =~CLK;
+	always #6 CLK =~CLK;
 		
 endmodule 

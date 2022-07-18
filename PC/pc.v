@@ -10,6 +10,6 @@ module pc (
 			if (~rst) 
 					PC_reg <= 10'b0;
 			else 
-					PC_reg <= PC_reg + 1'b1;
+				if(clk) PC_reg <= PC_reg + 1'b1;
 	
 endmodule
