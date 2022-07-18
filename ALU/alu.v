@@ -1,7 +1,7 @@
 module alu (
 		input 	  [31:0] data1, data2,
 		input 	  [1:0] sel,
-		output reg [31:0] out
+		output reg signed [31:0] out
 	);
 
 		always @(*) begin

@@ -40,7 +40,7 @@ module TB();
 		Data_BUS_READ = 32'h1DAA;
 		#200 RST = 1;
 
-        #500 $stop;
+        #1000 $stop;
 	end
 	
 	

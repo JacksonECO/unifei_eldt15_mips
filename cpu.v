@@ -64,7 +64,7 @@ module cpu(
 	
 	//-- Instruction Fetch - Etapa 1
 	pc pc1(.clk(CLK_SYS), .rst(Rst), .count(PcPointer));
-	instructionmemory INST(.Addr(PcPointer), .Instruction(InstructionOut));
+	instructionmemory INST(.Addr(PcPointer), .Instruction(InstructionOut),.clk(CLK_SYS));
 	
 	
 	//-- Intruction Decode - Etapa 2
