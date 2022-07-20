@@ -12,7 +12,7 @@ module control_TB();
 
     initial begin
         //					 |group+1| rs  | rt  |   offse (16b)  | LW
-        #20 instruction = 32'b_010000_00000_00001_0000000000000000;
+        instruction = 32'b_010000_00000_00001_0000000000000000;
 
         //					 |group+1| rs  | rt  |   offse (16b)  | LW
         #20 instruction = 32'b_010000_00000_00010_0000000000000001;
@@ -36,8 +36,8 @@ module control_TB();
 
         //					 |group+2| rs  | rt  |   offse (16b)  | LW
         #20 instruction = 32'b_010001_00000_00011_0000000000000011;
+        
+        #20 $stop;
     end
 
 endmodule
-
-// {[31:24], extend_ctrl [23], mul_ctrl [22], rs [21:17], rt [16:12], rd [11:7], wr_reg_file [6], wr [5], mux_wb [4], mux_reg [3], mux_alu [2], alu_ctrl [1:0]};

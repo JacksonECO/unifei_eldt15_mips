@@ -10,22 +10,20 @@ module registerfile
 		output reg [31:0] A,B
 	);
 
-	integer i=0;
+	integer i;
 	
 	reg [31:0] register [0:n_register-1];
 	
-	always @ (negedge clk, negedge rst) begin
+	always @ (negedge clk, negedge rst)
 		if(~rst)
-			for(i = 0; i < n_register; i = i+1) begin
+			for(i = 0; i < n_register; i = i+1)
 				register[i] = 32'b0;
-			end
 		else if (we) 
 			register[rd] <= dataIn;
-	end
 	
 	always @ (posedge clk) begin
-			A <= register[rs];
-			B <= register[rt];
+		A <= register[rs];
+		B <= register[rt];
 	end
 
 endmodule

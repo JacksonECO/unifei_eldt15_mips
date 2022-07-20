@@ -15,12 +15,12 @@ module pc_TB();
 	initial 
 	begin
 		clk = 0;
-		rst = 1;
+		rst = 0;
 		
-		#10 rst = 0;
+		#10 rst = 1;
 		
-		#100 rst = 1;
-		#50 rst = 0;
+		#100 rst = 0;
+		#50 rst = 1;
 		
 		#1000 $stop;
 	end

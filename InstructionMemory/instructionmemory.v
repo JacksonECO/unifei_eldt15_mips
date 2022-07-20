@@ -49,8 +49,7 @@ module instructionmemory(
 	
 	end
 	
-	always @(posedge clk) begin
-		if(clk) Instruction <= mem[Addr];
-	end
+	always @(posedge clk) Instruction <= mem[Addr];
+
 
 endmodule

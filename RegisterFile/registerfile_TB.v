@@ -23,18 +23,18 @@ module registerfile_TB();
 
 	initial begin
 		clk = 1;
-		rst = 1;
+		rst = 0;
 		we = 0;
 		rs = 0;
 		rt = 30;
 		rd = 1;
 		dataIn = 32'h1002aaff;
 
-		#20 rst = 0;
+		#20 rst = 1;
 
 		#100 we = 1;
 		#700 we = 0;
-		#100 rst = 1;
+		#100 rst = 0;
 		#100 $stop;
 
 	end

@@ -86,7 +86,7 @@ module cpu(
 	ADDRDecoding addr(.ADDR(D1Out), .CS(ADDROut));
 	Register regM(.clk(CLK_SYS), .rst(Rst), .D({31'b0,ADDROut}), .Q(MOut));
     mux mux3(.data1(dataMemOut), .data2(Data_BUS_READ), .sel(MOut[0]), .out(Mux3Out));
-	Register regD2(.clk(CLK_SYS), .rst(Rst), .D(D1Out), .Q(D2Out)); //saida??
+	Register regD2(.clk(CLK_SYS), .rst(Rst), .D(D1Out), .Q(D2Out)); 
 	Register ctrlReg3(.clk(CLK_SYS), .rst(Rst), .D(CTRL2Out), .Q(CTRL3Out));
 	
 	//-- WriteBack  - Etapa 5

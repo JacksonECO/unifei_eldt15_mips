@@ -1,0 +1,4 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# ERROR: No extended dataflow license exists
+# extend_run_msim_gate_verilog.do
+# invalid command name "extend_run_msim_gate_verilog.do"

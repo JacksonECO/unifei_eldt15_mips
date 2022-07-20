@@ -15,13 +15,10 @@ module ADDRDecoding
         output reg CS
     );
 	
-	always @(*) begin
-		if ((ADDR >= inf) && (ADDR < sup)) begin
+	always @(*) 
+		if ((ADDR >= inf) && (ADDR < sup)) 
 			CS <= 1'b0; // Acesso a memória Interna
-		end
-		
-		else begin
+		else 
 			CS <= 1'b1; // Acessa a memória Externa
-		end	
-	end
+
 endmodule

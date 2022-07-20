@@ -6,7 +6,7 @@ module datamemory
     )
     (
         input [31:0] ADDR,
-        input RW_RD,	// RW_RD = 1 -> leitura ; RW_RD = 0 -> escrita
+        input RW_RD,	// RW_RD = 0 -> escrita => RW_RD = 1 -> leitura;
         input CLK,
         input [data_WIDTH-1:0] din,
         output reg [data_WIDTH-1:0] dout
@@ -26,7 +26,7 @@ module datamemory
 	always@(posedge CLK) begin
 		if (~RW_RD) // ~RW_RD = escrita
 			memData[ADDR-32'h4b00] <= din;
-		else 			// RW_RD = leitura
+		else 		// RW_RD = leitura
 			dout <= memData[ADDR-32'h4b00];
 	end
 endmodule

@@ -4,16 +4,14 @@ module datamemory_TB();
 	parameter data_WIDTH = 32;
 	parameter ADDR_WIDTH = 10;
 
-	// Input Ports
 	reg[ADDR_WIDTH-1:0] ADDR;
 	reg RW_RD;
 	reg CLK;
 	reg [data_WIDTH-1:0] din;
 	wire [data_WIDTH-1:0] dout;
 
-	integer i = 0;
+	integer i;
 
-	// Device Under Test
 	datamemory DUT (
 		.ADDR(ADDR),
 		.RW_RD(RW_RD),
@@ -27,18 +25,14 @@ module datamemory_TB();
 		RW_RD = 0;
 		ADDR = 0;
 		din = 0;
-		
 
-		#20 RW_RD = 0;	// escrever
-	
-		// Varia o endereço e coloca um valor na entrada
+		#20 RW_RD = 0;	// Escrever
 		for(i=0; i<15; i=i+1) begin
 			#80 ADDR = i;
 			din = i;
 		end
 		
-		RW_RD = 1; 	// ler
-		// Varia o endereço 
+		RW_RD = 1; 	// Ler
 		for(i=0; i<15; i=i+1) begin
 			#80 ADDR = i;
 		end
