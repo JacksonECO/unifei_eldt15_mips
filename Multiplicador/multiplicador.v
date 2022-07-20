@@ -1,3 +1,9 @@
+/*
+Eduardo Augusto Ribeiro Duenas - 2017011086 - Turma 2
+Jackson Galdino Da Silveira    - 2018010136 - Turma 1
+Jean Tan Li                    - 2018000069 - Turma 1
+*/
+
 module multiplicador(Produto, Idle, Done, clk, rst, St, Multiplicador, Multiplicando);
 		output	[31:0] Produto;
 		output	Idle, Done;
