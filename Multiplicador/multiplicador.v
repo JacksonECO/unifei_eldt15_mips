@@ -8,14 +8,14 @@ module multiplicador(Produto, Idle, Done, clk, rst, St, Multiplicador, Multiplic
 		wire	[16:0]soma_out;
 		wire	[15:0]soma_in;
 
-		assign Produto = Multiplicador * Multiplicando;
+		//assign Produto = Multiplicador * Multiplicando;
 
 		
-		// assign soma_in = Produto[31:16];
+		 assign soma_in = Produto[31:16];
 		
-		// Counter	counter_mult(.entrada(Load), .clk(clk), .rst(rst), .saida(K));
-		// ACC		acc_mult(.clk(clk),.rst(rst),.Load(Load),.Sh(Sh),.Ad(Ad),.lsb(Multiplicador),.msb(soma_out),.saida(Produto), .M(M));
-		// Adder		adder_mult(.add1(Multiplicando), .add2(soma_in), .soma(soma_out));
-		// Control	control_mult(.clk(clk), .St(St), .rst(rst), .M(M), .K(K), .Idle(Idle), .Done(Done), .Load(Load), .Sh(Sh), .Ad(Ad));
+		 Counter	counter_mult(.entrada(Load), .clk(clk), .rst(rst), .saida(K));
+		 ACC		acc_mult(.clk(clk),.rst(rst),.Load(Load),.Sh(Sh),.Ad(Ad),.lsb(Multiplicador),.msb(soma_out),.saida(Produto), .M(M));
+		 Adder		adder_mult(.add1(Multiplicando), .add2(soma_in), .soma(soma_out));
+		 Control	control_mult(.clk(clk), .St(St), .rst(rst), .M(M), .K(K), .Idle(Idle), .Done(Done), .Load(Load), .Sh(Sh), .Ad(Ad));
 		
 endmodule

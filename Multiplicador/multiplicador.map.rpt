@@ -1,5 +1,5 @@
 Analysis & Synthesis report for multiplicador
-Sun Jul 17 15:32:49 2022
+Wed Jul 20 14:55:00 2022
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -46,7 +46,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Jul 17 15:32:49 2022       ;
+; Analysis & Synthesis Status        ; Successful - Wed Jul 20 14:55:00 2022       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; multiplicador                               ;
 ; Top-level Entity Name              ; multiplicador                               ;
@@ -158,29 +158,30 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 4           ;
-; Maximum allowed            ; 2           ;
+; Number detected on machine ; 6           ;
+; Maximum allowed            ; 6           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 2           ;
+; Maximum used               ; 6           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
 ;     Processor 2            ;   0.0%      ;
+;     Processors 3-6         ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                  ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                              ; Library ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------+---------+
-; Counter/Counter.v                ; yes             ; User Verilog HDL File        ; C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/Counter/Counter.v ;         ;
-; Control/Control.v                ; yes             ; User Verilog HDL File        ; C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/Control/Control.v ;         ;
-; Adder/Adder.v                    ; yes             ; User Verilog HDL File        ; C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/Adder/Adder.v     ;         ;
-; ACC/ACC.v                        ; yes             ; User Verilog HDL File        ; C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/ACC/ACC.v         ;         ;
-; multiplicador.v                  ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/multiplicador.v   ;         ;
-+----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------+---------+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                               ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                 ; Library ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------------------+---------+
+; Control/Control.v                ; yes             ; User Verilog HDL File  ; Z:/GitHub/unifei_eldt15_mips/Multiplicador/Control/Control.v ;         ;
+; Counter/Counter.v                ; yes             ; User Verilog HDL File  ; Z:/GitHub/unifei_eldt15_mips/Multiplicador/Counter/Counter.v ;         ;
+; Adder/Adder.v                    ; yes             ; User Verilog HDL File  ; Z:/GitHub/unifei_eldt15_mips/Multiplicador/Adder/Adder.v     ;         ;
+; ACC/ACC.v                        ; yes             ; User Verilog HDL File  ; Z:/GitHub/unifei_eldt15_mips/Multiplicador/ACC/ACC.v         ;         ;
+; multiplicador.v                  ; yes             ; User Verilog HDL File  ; Z:/GitHub/unifei_eldt15_mips/Multiplicador/multiplicador.v   ;         ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------------------+---------+
 
 
 +---------------------------------------------+
@@ -306,7 +307,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:00     ;
 +----------------+--------------+
 
 
@@ -316,26 +317,28 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sun Jul 17 15:32:25 2022
+    Info: Processing started: Wed Jul 20 14:54:53 2022
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off multiplicador -c multiplicador
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file counter/counter.v
-    Info (12023): Found entity 1: Counter File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/Counter/Counter.v Line: 1
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file control/control.v
-    Info (12023): Found entity 1: Control File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/Control/Control.v Line: 1
+    Info (12023): Found entity 1: Control File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/Control/Control.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file counter/counter.v
+    Info (12023): Found entity 1: Counter File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/Counter/Counter.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file adder/adder.v
-    Info (12023): Found entity 1: Adder File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/Adder/Adder.v Line: 1
+    Info (12023): Found entity 1: Adder File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/Adder/Adder.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file acc/acc.v
-    Info (12023): Found entity 1: ACC File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/ACC/ACC.v Line: 1
-Warning (12125): Using design file multiplicador.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
-    Info (12023): Found entity 1: multiplicador File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 1
+    Info (12023): Found entity 1: ACC File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/ACC/ACC.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file multiplicador_tb.v
+    Info (12023): Found entity 1: multiplicador_TB File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/multiplicador_TB.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file multiplicador.v
+    Info (12023): Found entity 1: multiplicador File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 1
 Info (12127): Elaborating entity "multiplicador" for the top level hierarchy
-Info (12128): Elaborating entity "Counter" for hierarchy "Counter:counter_mult" File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 14
-Info (12128): Elaborating entity "ACC" for hierarchy "ACC:acc_mult" File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 15
-Info (10264): Verilog HDL Case Statement information at ACC.v(16): all case item expressions in this case statement are onehot File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/ACC/ACC.v Line: 16
-Info (12128): Elaborating entity "Adder" for hierarchy "Adder:adder_mult" File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 16
-Info (12128): Elaborating entity "Control" for hierarchy "Control:control_mult" File: C:/Users/jeant/OneDrive/Documents/mips/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 17
+Info (12128): Elaborating entity "Counter" for hierarchy "Counter:counter_mult" File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 16
+Info (12128): Elaborating entity "ACC" for hierarchy "ACC:acc_mult" File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 17
+Info (10264): Verilog HDL Case Statement information at ACC.v(16): all case item expressions in this case statement are onehot File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/ACC/ACC.v Line: 16
+Info (12128): Elaborating entity "Adder" for hierarchy "Adder:adder_mult" File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 18
+Info (12128): Elaborating entity "Control" for hierarchy "Control:control_mult" File: Z:/GitHub/unifei_eldt15_mips/Multiplicador/multiplicador.v Line: 19
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 2 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
@@ -344,10 +347,10 @@ Info (21057): Implemented 136 device resources after synthesis - the final resou
     Info (21058): Implemented 35 input pins
     Info (21059): Implemented 34 output pins
     Info (21061): Implemented 67 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4813 megabytes
-    Info: Processing ended: Sun Jul 17 15:32:49 2022
-    Info: Elapsed time: 00:00:24
-    Info: Total CPU time (on all processors): 00:00:44
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 719 megabytes
+    Info: Processing ended: Wed Jul 20 14:55:00 2022
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:16
 
 

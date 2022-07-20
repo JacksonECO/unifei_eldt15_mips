@@ -7,14 +7,13 @@ module cpu(
         output [31:0] ADDR
     ); 
 	
-	
-	
 	//-- Wires PLL
 	wire locked;
-	wire CLK_SYS, CLK_MUL;
+	(*keep=1*) wire CLK_SYS;
+	(*keep=1*) wire CLK_MUL;
 	
 	//-- Wires Instruction Fetch
-	wire [9:0] PcPointer;
+	(*keep=1*) wire [9:0] PcPointer;
 	wire [31:0] InstructionOut;
 
 	//-- Wires Instruction Decode
@@ -29,7 +28,7 @@ module cpu(
 	wire [31:0] Mux1Out, Mux2Out, Mux3Out; // Saidas dos mux
 	wire [31:0] ALUOut;
 	wire [31:0] D1Out;
-	wire [31:0] B1Out;
+	(*keep=1*) wire [31:0] B1Out;
 	wire [31:0] CTRL2Out;
 	wire [31:0] MultOut;
 	wire [31:0] ARegFileOut;
@@ -39,20 +38,17 @@ module cpu(
 	wire ADDROut;
 	wire [31:0] MOut;
 	wire [31:0] D2Out;
-	wire [31:0] CTRL3Out;
+	(*keep=1*) wire [31:0] CTRL3Out;
 	wire [31:0] dataMemOut;
-	// wire [31:0] BusOut;
-	// wire [31:0] ADDR;
 	
 	
 	//-- Wires Write Back
-	wire [31:0] writeBack;
+	(*keep=1*) wire [31:0] writeBack;
 	
 	
 	//-- COMPOSIÇÃO DO SINAL DE CONTROLE
-	// Controlout = {{8'b0},{rs},{rt},{rd},{wr_reg_file},{wr},{mux_wb},{mux_reg},{mux_alu},{alu_ctrl}};
-	// {[31:24], extend_ctrl [23], mul_ctrl [22], rs [21:17], rt [16:12], rd [11:7], wr_reg_file [6], wr [5], mux_wb [4], mux_reg [3], mux_alu [2], alu_ctrl [1:0]};
-	
+	// Controle = {{8'b0},{extend_ctrl},{mul_ctrl},{rs},{rt},{rd},{wr_reg_file},{wr},{mux_wb},{mux_reg},{mux_alu},{alu_ctrl}};
+
 	assign CS = ADDROut;
 	assign Data_BUS_WRITE = B1Out;
 	assign WR_RD = CTRL2Out[5];

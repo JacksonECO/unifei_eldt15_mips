@@ -1,11 +1,11 @@
-Fitter Status : Successful - Sun Jul 17 15:33:26 2022
+Fitter Status : Successful - Wed Jul 20 14:55:11 2022
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : multiplicador
 Top-level Entity Name : multiplicador
 Family : Cyclone IV GX
 Device : EP4CGX150DF31I7AD
 Timing Models : Final
-Total logic elements : 67 / 149,760 ( < 1 % )
+Total logic elements : 68 / 149,760 ( < 1 % )
     Total combinational functions : 66 / 149,760 ( < 1 % )
     Dedicated logic registers : 43 / 149,760 ( < 1 % )
 Total registers : 43
